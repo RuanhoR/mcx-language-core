@@ -1,0 +1,34 @@
+{
+  "name": "mcx-language-core",
+  "displayName": "mcx-language-core",
+  "description": "Language support for mcx(DSL: RuanhoR/mcx-core )",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.110.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "mcx",
+        "aliases": [
+          "text/mcx",
+          "mcx"
+        ],
+        "extensions": [
+          ".mcx"
+        ],
+        "configuration": "./languages/language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mcx",
+        "scopeName": "text.mcbe.mcx",
+        "path": "./syntaxes/mcx.tmLanguage.json"
+      }
+    ]
+  }
+}

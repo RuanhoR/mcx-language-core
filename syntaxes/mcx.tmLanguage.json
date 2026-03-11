@@ -1,0 +1,20 @@
+{
+  "$schema": "https://gh-proxy.com/https://github.com/martinring/tmlanguage/raw/master/tmlanguage.json",
+  "name": "text/mcx",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    }
+  ],
+  "repository": {
+    "mcx-element": {
+      "begin": "<",
+      "name": "keyword",
+      "end": ">"
+    }
+  },
+  "scopeName": "text.mcbe.mcx"
+}
