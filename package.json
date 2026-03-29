@@ -1,14 +1,18 @@
 {
   "name": "mcx-language-core",
-  "displayName": "mcx-language-core",
-  "description": "Language support for mcx(DSL: RuanhoR/mcx-core )",
-  "version": "0.0.1",
+  "displayName": "MCX Language Support",
+  "description": "Language support for mcx (DSL: RuanhoR/mcx-core)",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.110.0"
   },
   "categories": [
     "Programming Languages"
   ],
+  "activationEvents": [
+    "onLanguage:mcx"
+  ],
+  "main": "./out/extension.js",
   "contributes": {
     "languages": [
       {
@@ -29,6 +33,26 @@
         "scopeName": "text.mcbe.mcx",
         "path": "./syntaxes/mcx.tmLanguage.json"
       }
+    ],
+    "commands": [
+      {
+        "command": "mcx.compile",
+        "title": "MCX: Compile Current File"
+      }
     ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {
+    "@mbler/mcx-core": "latest",
+    "vscode-uri": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.110.0",
+    "typescript": "^5.9.0"
   }
 }

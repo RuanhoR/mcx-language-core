@@ -3,17 +3,208 @@
   "name": "text/mcx",
   "patterns": [
     {
-      "include": "#keywords"
+      "include": "#comments"
+    },
+    {
+      "include": "#script-tag"
+    },
+    {
+      "include": "#mcx-tags"
     },
     {
       "include": "#strings"
+    },
+    {
+      "include": "#keywords"
     }
   ],
   "repository": {
-    "mcx-element": {
-      "begin": "<",
-      "name": "keyword",
-      "end": ">"
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.mcx",
+          "begin": "<!--",
+          "end": "-->",
+          "captures": {
+            "0": {
+              "name": "punctuation.definition.comment.mcx"
+            }
+          }
+        }
+      ]
+    },
+    "script-tag": {
+      "patterns": [
+        {
+          "name": "meta.tag.script.mcx",
+          "begin": "(<)(script)(?=[\\s>])",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.mcx"
+            },
+            "2": {
+              "name": "entity.name.tag.script.mcx"
+            }
+          },
+          "end": "(</)(script)(>)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.mcx"
+            },
+            "2": {
+              "name": "entity.name.tag.script.mcx"
+            },
+            "3": {
+              "name": "punctuation.definition.tag.end.mcx"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "(?<=<script[^>]*>)",
+              "end": "(?=</script>)",
+              "patterns": [
+                {
+                  "include": "source.js"
+                },
+                {
+                  "include": "source.ts"
+                }
+              ]
+            },
+            {
+              "include": "#tag-attributes"
+            }
+          ]
+        }
+      ]
+    },
+    "mcx-tags": {
+      "patterns": [
+        {
+          "name": "meta.tag.mcx",
+          "begin": "(<)(/?)([a-zA-Z][a-zA-Z0-9]*)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.begin.mcx"
+            },
+            "2": {
+              "name": "punctuation.definition.tag.end.mcx"
+            },
+            "3": {
+              "name": "entity.name.tag.mcx",
+              "patterns": [
+                {
+                  "match": "Event|Component|Ui|items|blocks|entities|item|block|entity",
+                  "name": "support.class.component.mcx"
+                }
+              ]
+            }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.tag.end.mcx"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#tag-attributes"
+            }
+          ]
+        }
+      ]
+    },
+    "tag-attributes": {
+      "patterns": [
+        {
+          "name": "entity.other.attribute-name.mcx",
+          "match": "(@[a-zA-Z-]+|[a-zA-Z-]+)",
+          "captures": {
+            "1": {
+              "patterns": [
+                {
+                  "match": "@[a-zA-Z-]+",
+                  "name": "support.function.directive.mcx"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "begin": "=",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.separator.key-value.mcx"
+            }
+          },
+          "end": "(?=[^\\s/>])",
+          "patterns": [
+            {
+              "include": "#strings"
+            }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.mcx",
+          "begin": "\"",
+          "end": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.mcx"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.mcx"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#string-escape"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.mcx",
+          "begin": "'",
+          "end": "'",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.mcx"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.mcx"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#string-escape"
+            }
+          ]
+        }
+      ]
+    },
+    "string-escape": {
+      "patterns": [
+        {
+          "name": "constant.character.escape.mcx",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.mcx",
+          "match": "\\b(import|export|from|const|let|var|function|class|interface|type|async|await|return|if|else|for|while|switch|case|break|continue|try|catch|finally|throw|new|typeof|instanceof)\\b"
+        }
+      ]
     }
   },
   "scopeName": "text.mcbe.mcx"
