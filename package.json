@@ -4,7 +4,7 @@
   "description": "Language support for mcx (DSL: RuanhoR/mcx-core)",
   "version": "0.0.2",
   "engines": {
-    "vscode": "^1.110.0"
+    "vscode": "^1.105.0"
   },
   "categories": [
     "Programming Languages"
@@ -47,7 +47,7 @@
     "watch": "tsc -watch -p ./"
   },
   "dependencies": {
-    "@mbler/mcx-core": "latest",
+    "@mbler/mcx-core": "0.0.4-beta",
     "vscode-uri": "^3.1.0"
   },
   "devDependencies": {
